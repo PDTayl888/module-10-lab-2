@@ -1,10 +1,16 @@
 import { useState } from "react";
+import { usePagination } from "../hooks/usePagination";
 
 export function PaginationRender() {
 
-      const [count, setCount] = useState(0)
+      const [itemsPerPage, setItemsPerPage] = useState(0)
 
       const dummyData = [];
+
+      const {
+        currentPage, totalPages, startIndex, endIndex, setPage, nextPage, prevPage, canNextPage, canPrevPage }
+        = usePagination( { totalItems: dummyData.length, itemsPerPage })
+      };
 
       for (let i=0; i<200; i++) {
         const item = "ITEM: " + (i+1);
