@@ -2,24 +2,32 @@ import { useState } from "react";
 import { usePagination } from "../hooks/usePagination";
 
 export function PaginationRender() {
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
-      const [itemsPerPage, setItemsPerPage] = useState(0)
+  const dummyData = [];
 
-      const dummyData = [];
+    for (let i = 0; i < 258; i++) {
+    const item = "ITEM: " + (i + 1);
+    dummyData.push(item);
+  }
 
-      const {
-        currentPage, totalPages, startIndex, endIndex, setPage, nextPage, prevPage, canNextPage, canPrevPage }
-        = usePagination( { totalItems: dummyData.length, itemsPerPage })
-      };
 
-      for (let i=0; i<200; i++) {
-        const item = "ITEM: " + (i+1);
-        dummyData.push(item);
-      }
+  const {
+    currentPage,
+    totalPages,
+    startIndex,
+    endIndex,
+    setPage,
+    nextPage,
+    prevPage,
+    canNextPage,
+    canPrevPage,
+  } = usePagination({ totalItems: dummyData.length, itemsPerPage });
 
-    return (
 
-            <>
+  const showItems = dummyData.slice(startIndex, endIndex);
+  return (
+    <>
       <div className="border border-black p-8 m-8">
         <h3 className="m-4 text-3xl">Pagination Demo</h3>
 
@@ -27,27 +35,25 @@ export function PaginationRender() {
           <div>
             <label htmlFor="itemsPerPageSelect">Items per page: </label>
 
-            <select id="itemsPerPageSelect" className="border border-black">
+            <select
+              value={itemsPerPage}
+              onChange={(e) => setItemsPerPage(e.target.value)}
+              id="itemsPerPageSelect"
+              className="border border-black"
+            >
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
               <option value="20">20</option>
             </select>
           </div>
-          <div>Total Items: 123</div>
+          <div>Total Items: {dummyData.length}</div>
         </div>
 
         <ol className="p-0">
-          <li className="border border-black p-2 m-2">Item 1</li>
-          <li className="border border-black p-2 m-2">Item 2</li>
-          <li className="border border-black p-2 m-2">Item 3</li>
-          <li className="border border-black p-2 m-2">Item 4</li>
-          <li className="border border-black p-2 m-2">Item 5</li>
-          <li className="border border-black p-2 m-2">Item 6</li>
-          <li className="border border-black p-2 m-2">Item 7</li>
-          <li className="border border-black p-2 m-2">Item 8</li>
-          <li className="border border-black p-2 m-2">Item 9</li>
-          <li className="border border-black p-2 m-2">Item 10</li>
+          {showItems.map((item, index) => (
+          <li key={index} className="border border-black p-2 m-2">{item}</li>
+          ))}
         </ol>
 
         <div className="border border-black p-4 m-4">
@@ -98,6 +104,5 @@ export function PaginationRender() {
         </div>
       </div>
     </>
-
-    )
+  );
 }
