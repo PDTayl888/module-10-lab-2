@@ -6,11 +6,10 @@ export function PaginationRender() {
 
   const dummyData = [];
 
-    for (let i = 0; i < 258; i++) {
+  for (let i = 0; i < 258; i++) {
     const item = "ITEM: " + (i + 1);
     dummyData.push(item);
   }
-
 
   const {
     currentPage,
@@ -24,10 +23,9 @@ export function PaginationRender() {
     canPrevPage,
   } = usePagination({ totalItems: dummyData.length, itemsPerPage });
 
-
   const showItems = dummyData.slice(startIndex, endIndex);
   const pageSelect = [];
-  for (let i=1; i<= totalPages; i++) {
+  for (let i = 1; i <= totalPages; i++) {
     pageSelect.push(i);
   }
   return (
@@ -41,7 +39,7 @@ export function PaginationRender() {
 
             <select
               value={itemsPerPage}
-              onChange={(e) => setItemsPerPage(e.target.value)}
+              onChange={(e) => setItemsPerPage(Number(e.target.value))}
               id="itemsPerPageSelect"
               className="border border-black"
             >
@@ -56,12 +54,16 @@ export function PaginationRender() {
 
         <ol className="p-0">
           {showItems.map((item, index) => (
-          <li key={index} className="border border-black p-2 m-2">{item}</li>
+            <li key={index} className="border border-black p-2 m-2">
+              {item}
+            </li>
           ))}
         </ol>
 
         <div className="border border-black p-4 m-4">
-          <button onClick={prevPage} className="border border-black">Previous </button>
+          <button onClick={prevPage} className="border border-black" disabled={!canPrevPage}>
+            Previous{" "}
+          </button>
           <span>
             Page{" "}
             <input
@@ -69,23 +71,30 @@ export function PaginationRender() {
               max={totalPages}
               type="number"
               value={currentPage}
-              onChange={(e) => setPage(e.target.value)}
+              onChange={(e) => setPage(Number(e.target.value))}
               className="border border-black "
             />
             of 13{" "}
           </span>
-          <button onClick={nextPage} className="border border-black">Next</button>
+          <button onClick={nextPage} className="border border-black" disabled={!canNextPage}>
+            Next
+          </button>
         </div>
         <div className="border border-black p-4 m-2">
-          Showing items {startIndex + 1} - {endIndex} (Total on this page: {showItems.length}
+          Showing items {startIndex + 1} - {endIndex} (Total on this page:{" "}
+          {showItems.length}
         </div>
 
         <div>
-  {pageSelect.map((pageNumber) => (
-          <button key={pageNumber} className="border border-black p-2 m-2">{pageNumber}</button>
-          ))}      
-        
-
+          {pageSelect.map((pageNumber) => (
+            <button
+              onClick={() => setPage(pageNumber)}
+              key={pageNumber}
+              className="border border-black p-2 m-2"
+            >
+              {pageNumber}
+            </button>
+          ))}
         </div>
       </div>
     </>
