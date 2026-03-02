@@ -11,5 +11,12 @@ export const pagination = ({totalItems, itemsPerPage = 10, initialPage = 1} => {
     }
 const startIndex = (currentPage-1) * itemsPerPage;
 const endIndex = startIndex + itemsPerPage;
-
+ return {
+    currentPage: pageOverflow,
+    totalPages,
+    startIndex,
+    endIndex,
+    setPage: (page) => setCurrentPage(page),
+    nextPage: 
+ }
 })
