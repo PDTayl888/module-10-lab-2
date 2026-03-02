@@ -26,6 +26,10 @@ export function PaginationRender() {
 
 
   const showItems = dummyData.slice(startIndex, endIndex);
+  const pageSelect = [];
+  for (let i=1; i<= totalPages; i++) {
+    pageSelect.push(i);
+  }
   return (
     <>
       <div className="border border-black p-8 m-8">
@@ -57,50 +61,31 @@ export function PaginationRender() {
         </ol>
 
         <div className="border border-black p-4 m-4">
-          <button className="border border-black">Previous </button>
+          <button onClick={prevPage} className="border border-black">Previous </button>
           <span>
             Page{" "}
             <input
               min="1"
-              max="13"
+              max={totalPages}
               type="number"
-              value="1"
+              value={currentPage}
+              onChange={(e) => setPage(e.target.value)}
               className="border border-black "
             />
             of 13{" "}
           </span>
-          <button className="border border-black">Next</button>
+          <button onClick={nextPage} className="border border-black">Next</button>
         </div>
         <div className="border border-black p-4 m-2">
-          Showing items 1 - 10 (Total on this page: 10){" "}
+          Showing items {startIndex + 1} - {endIndex} (Total on this page: {showItems.length}
         </div>
 
         <div>
-          <button disabled="" className="border border-black ">
-            1
-          </button>
+  {pageSelect.map((pageNumber) => (
+          <button key={pageNumber} className="border border-black p-2 m-2">{pageNumber}</button>
+          ))}      
+        
 
-          <button className="border border-black ">2 </button>
-
-          <button className="border border-black ">3 </button>
-
-          <button className="border border-black ">4</button>
-          <button className="border border-black ">5</button>
-
-          <button className="border border-black ">6 </button>
-          <button className="border border-black ">7</button>
-
-          <button className="border border-black ">8 </button>
-
-          <button className="border border-black ">9</button>
-
-          <button className="border border-black ">10</button>
-
-          <button className="border border-black ">11 </button>
-
-          <button className="border border-black ">12 </button>
-
-          <button className="border border-black ">13</button>
         </div>
       </div>
     </>
