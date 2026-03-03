@@ -1,18 +1,14 @@
-import { useState } from 'react'
+import { useState } from "react";
 import "./App.css";
-import { PaginationRender } from './components/PaginationRender';
-import { DebounceSearchDemo } from './components/DebounceSearchDemo';
+import { PaginationRender } from "./components/PaginationRender";
+import { DebounceSearchDemo } from "./components/DebounceSearchDemo";
 
 export function App() {
-
-
-
   return (
     <>
-        <PaginationRender></PaginationRender>
-        <br />
-    <DebounceSearchDemo></DebounceSearchDemo>
-
+      <PaginationRender></PaginationRender>
+      <br />
+      <DebounceSearchDemo></DebounceSearchDemo>
     </>
   );
 }
